@@ -1,0 +1,2567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EliteView - Advanced CCTV Solutions</title>
+<!-- ✅ FAVICON -->
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+:root {
+--primary: #0d4a7c;
+--secondary: #1e88e5;
+--accent: #ff6b35;
+--light: #f8f9fa;
+--dark: #212529;
+--gray: #6c757d;
+--light-gray: #e9ecef;
+--success: #28a745;
+--danger: #dc3545;
+--warning: #ffc107;
+}
+body {
+background-color: #f5f7fa;
+color: var(--dark);
+line-height: 1.6;
+}
+/* Prevent background scroll when modal open */
+body.modal-open {
+  overflow: hidden;
+}
+/* Header Styles */
+header {
+background-color: white;
+box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+position: sticky;
+top: 0;
+z-index: 1000;
+}
+.header-container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem 5%;
+max-width: 1400px;
+margin: 0 auto;
+}
+.logo {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.logo i {
+color: var(--primary);
+font-size: 2rem;
+}
+.logo h1 {
+font-size: 1.8rem;
+font-weight: 700;
+color: var(--primary);
+}
+.logo span {
+color: var(--accent);
+}
+nav ul {
+display: flex;
+list-style: none;
+gap: 2rem;
+}
+nav a {
+text-decoration: none;
+color: var(--dark);
+font-weight: 600;
+font-size: 1.1rem;
+padding: 0.5rem 0;
+position: relative;
+transition: color 0.3s;
+}
+nav a:hover {
+color: var(--secondary);
+}
+nav a::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+width: 0;
+height: 3px;
+background-color: var(--accent);
+transition: width 0.3s;
+}
+nav a:hover::after {
+width: 100%;
+}
+.mobile-menu-btn {
+display: none;
+background: none;
+border: none;
+font-size: 1.5rem;
+cursor: pointer;
+color: var(--primary);
+}
+.admin-indicator {
+background: var(--accent);
+color: white;
+padding: 0.3rem 0.8rem;
+border-radius: 20px;
+font-size: 0.9rem;
+font-weight: 600;
+}
+/* Night Vision Toggle Button */
+.night-vision-btn {
+background: none;
+border: none;
+color: var(--primary);
+font-size: 1.2rem;
+cursor: pointer;
+margin-left: 1rem;
+transition: color 0.3s;
+}
+.night-vision-btn:hover {
+color: var(--accent);
+}
+/* Hero Carousel */
+.hero-carousel {
+position: relative;
+width: 100%;
+overflow: hidden;
+height: 600px;
+}
+.hero-slides {
+display: flex;
+transition: transform 0.6s ease-in-out;
+height: 100%;
+}
+.hero-slide {
+min-width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+background-size: cover;
+background-position: center;
+position: relative;
+}
+.hero-slide::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+z-index: 1;
+}
+.hero-content {
+max-width: 800px;
+text-align: center;
+color: white;
+padding: 0 2rem;
+position: relative;
+z-index: 2;
+}
+.hero-content h2 {
+font-size: 2.8rem;
+margin-bottom: 1.5rem;
+font-weight: 700;
+text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.hero-content p {
+font-size: 1.2rem;
+margin-bottom: 2rem;
+opacity: 0.9;
+text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.cta-button {
+display: inline-block;
+background-color: var(--accent);
+color: white;
+padding: 0.8rem 2rem;
+border-radius: 50px;
+text-decoration: none;
+font-weight: 600;
+font-size: 1.1rem;
+transition: all 0.3s;
+box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+.cta-button:hover {
+background-color: #e55a2b;
+transform: translateY(-3px);
+box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+}
+/* Slide Backgrounds */
+.hero-slide:nth-child(1) {
+background-image: url('https://images.unsplash.com/photo-1589656966895-2f33e7653819?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+}
+.hero-slide:nth-child(2) {
+background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+}
+.hero-slide:nth-child(3) {
+background-image: url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+}
+/* Navigation Dots */
+.hero-dots {
+position: absolute;
+bottom: 30px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 10px;
+}
+.dot {
+height: 12px;
+width: 12px;
+border-radius: 50%;
+background-color: rgba(255, 255, 255, 0.5);
+cursor: pointer;
+transition: background-color 0.3s;
+}
+.dot.active {
+background-color: white;
+}
+/* Navigation Arrows */
+.hero-arrow {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: rgba(0, 0, 0, 0.5);
+color: white;
+border: none;
+font-size: 24px;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+cursor: pointer;
+opacity: 0;
+transition: opacity 0.3s, background 0.3s;
+}
+.hero-carousel:hover .hero-arrow {
+opacity: 1;
+}
+.hero-prev {
+left: 20px;
+}
+.hero-next {
+right: 20px;
+}
+.hero-arrow:hover {
+background: rgba(0, 0, 0, 0.8);
+}
+/* Main Content */
+main {
+max-width: 1400px;
+margin: 0 auto;
+padding: 3rem 5%;
+}
+.section-title {
+text-align: center;
+margin-bottom: 3rem;
+position: relative;
+}
+.section-title h2 {
+font-size: 2.2rem;
+color: var(--primary);
+display: inline-block;
+padding-bottom: 0.5rem;
+}
+.section-title h2::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+width: 80px;
+height: 4px;
+background-color: var(--accent);
+border-radius: 2px;
+}
+/* ✅ SCROLLABLE PRODUCTS CAROUSEL */
+.products-carousel {
+display: flex;
+overflow-x: auto;
+gap: 1.5rem;
+padding: 1rem 0;
+-webkit-overflow-scrolling: touch;
+scroll-snap-type: x mandatory;
+scrollbar-width: thin;
+scrollbar-color: var(--gray) var(--light);
+min-width: 300px;
+}
+.products-carousel::-webkit-scrollbar {
+height: 6px;
+}
+.products-carousel::-webkit-scrollbar-thumb {
+background: var(--gray);
+border-radius: 3px;
+}
+/* ✅ FIXED WIDTH — NEVER STRETCHES (MAIN PAGE) */
+.products-carousel .product-card {
+scroll-snap-align: start;
+flex: 0 0 280px;
+width: 280px;
+max-width: 280px;
+min-width: 280px;
+}
+#viewAllProductsBtn {
+text-decoration: none;
+display: inline-flex;
+align-items: center;
+gap: 0.3rem;
+font-weight: 600;
+}
+/* Products Grid (Default Responsive) */
+.products-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 1.25rem;
+margin-bottom: 4rem;
+}
+/* ✅ FIXED-WIDTH GRID FOR FILTERED PRODUCTS — NO STRETCHING, NO GAPS */
+#filteredProductsGrid {
+display: grid;
+grid-template-columns: repeat(auto-fill, 280px);
+gap: 1.25rem;
+margin-bottom: 4rem;
+justify-content: flex-start;
+}
+.product-card {
+background: white;
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card:hover {
+transform: translateY(-10px);
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+.product-image {
+height: 200px;
+background: var(--light-gray);
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--gray);
+font-size: 1.2rem;
+position: relative;
+}
+.product-image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.product-info {
+padding: 1.5rem;
+}
+.product-info h3 {
+color: var(--primary);
+margin-bottom: 0.5rem;
+font-size: 1.3rem;
+}
+.product-info p {
+color: var(--gray);
+margin-bottom: 1rem;
+}
+.price {
+font-weight: 700;
+color: var(--accent);
+font-size: 1.2rem;
+margin-bottom: 1rem;
+}
+.btn {
+display: inline-block;
+background-color: var(--secondary);
+color: white;
+padding: 0.5rem 1.2rem;
+border-radius: 5px;
+text-decoration: none;
+font-weight: 600;
+transition: background-color 0.3s;
+}
+.btn:hover {
+background-color: var(--primary);
+}
+/* News & Events */
+.news-events {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+}
+.event-card {
+background: white;
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+transition: transform 0.3s;
+}
+.event-card:hover {
+transform: translateY(-5px);
+}
+.event-date {
+background-color: var(--primary);
+color: white;
+padding: 0.8rem;
+text-align: center;
+font-weight: 700;
+}
+.event-content {
+padding: 1.5rem;
+}
+.event-content h3 {
+color: var(--primary);
+margin-bottom: 0.8rem;
+font-size: 1.3rem;
+}
+.event-content p {
+color: var(--gray);
+margin-bottom: 1rem;
+}
+.read-more {
+color: var(--secondary);
+text-decoration: none;
+font-weight: 600;
+display: flex;
+align-items: center;
+gap: 5px;
+}
+.read-more:hover {
+text-decoration: underline;
+}
+/* ✅ COLOR TAGS FOR NEWS VS EVENTS */
+.news-tag,
+.event-tag {
+display: inline-block;
+padding: 0.2rem 0.6rem;
+border-radius: 12px;
+font-size: 0.8rem;
+font-weight: 600;
+margin-bottom: 0.5rem;
+}
+.news-tag {
+background: rgba(30, 136, 229, 0.15);
+color: var(--secondary);
+}
+.event-tag {
+background: rgba(255, 107, 53, 0.15);
+color: var(--accent);
+}
+/* About Us */
+.about-content {
+display: flex;
+gap: 3rem;
+align-items: center;
+margin-top: 2rem;
+}
+.about-text {
+flex: 1;
+}
+.about-text h3 {
+color: var(--primary);
+margin-bottom: 1.5rem;
+font-size: 1.8rem;
+}
+.about-text p {
+margin-bottom: 1.5rem;
+color: var(--gray);
+}
+.about-image {
+flex: 1;
+height: 350px;
+background: var(--light-gray);
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--gray);
+font-size: 1.2rem;
+border-radius: 10px;
+overflow: hidden;
+}
+.about-image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+/* Footer */
+footer {
+background-color: var(--dark);
+color: white;
+padding: 3rem 5% 1.5rem;
+}
+.footer-content {
+max-width: 1400px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 2rem;
+margin-bottom: 2rem;
+}
+.footer-section h3 {
+margin-bottom: 1.5rem;
+color: var(--accent);
+font-size: 1.4rem;
+}
+.footer-section p, .footer-section a {
+color: #adb5bd;
+margin-bottom: 0.8rem;
+display: block;
+text-decoration: none;
+transition: color 0.3s;
+}
+.footer-section a:hover {
+color: var(--accent);
+}
+.social-icons {
+display: flex;
+gap: 1rem;
+margin-top: 1rem;
+}
+.social-icons a {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+background-color: rgba(255, 255, 255, 0.1);
+border-radius: 50%;
+color: white;
+transition: background-color 0.3s;
+}
+.social-icons a:hover {
+background-color: var(--accent);
+}
+.copyright {
+text-align: center;
+padding-top: 1.5rem;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+color: #adb5bd;
+font-size: 0.9rem;
+}
+/* Admin Panel Styles */
+.admin-panel {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.8);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 2000;
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s ease;
+}
+.admin-panel.active {
+opacity: 1;
+visibility: visible;
+}
+.admin-content {
+background: white;
+width: 90%;
+max-width: 800px;
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+.admin-header {
+background: var(--primary);
+color: white;
+padding: 1.5rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.admin-header h2 {
+font-size: 1.5rem;
+}
+.close-admin {
+background: none;
+border: none;
+color: white;
+font-size: 1.5rem;
+cursor: pointer;
+}
+.admin-body {
+padding: 2rem;
+}
+.login-form {
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
+}
+.form-group {
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+}
+.form-group label {
+font-weight: 600;
+color: var(--dark);
+}
+.form-group input, .form-group textarea, .form-group select {
+padding: 0.8rem;
+border: 1px solid #ddd;
+border-radius: 5px;
+font-size: 1rem;
+}
+/* ✅ LEFT-ALIGNED BUTTONS */
+.form-actions {
+display: flex;
+gap: 1rem;
+margin-top: 1.5rem;
+justify-content: flex-start;
+align-items: center;
+flex-wrap: wrap;
+border-top: 1px solid var(--light-gray);
+padding-top: 1.2rem;
+}
+.form-actions .btn-admin {
+width: auto !important;
+max-width: fit-content !important;
+min-width: auto !important;
+height: auto !important;
+padding: 0.35rem 0.85rem !important;
+font-size: 0.92rem !important;
+line-height: 1.2 !important;
+white-space: nowrap;
+border: none;
+border-radius: 4px;
+font-weight: 600;
+cursor: pointer;
+transition: background 0.3s;
+}
+.btn-primary {
+background: var(--primary);
+color: white;
+}
+.btn-primary:hover {
+background: var(--secondary);
+}
+.btn-danger {
+background: var(--danger);
+color: white;
+}
+.btn-danger:hover {
+background: #c82333;
+}
+.notification {
+position: fixed;
+top: 20px;
+right: 20px;
+padding: 1rem;
+border-radius: 5px;
+color: white;
+font-weight: 600;
+z-index: 3000;
+transform: translateX(200%);
+transition: transform 0.3s ease;
+}
+.notification.show {
+transform: translateX(0);
+}
+.notification.success {
+background: var(--success);
+}
+.notification.error {
+background: var(--danger);
+}
+.login-message {
+padding: 0.8rem;
+border-radius: 5px;
+margin-top: 1rem;
+text-align: center;
+font-weight: 600;
+}
+.login-message.success {
+background: rgba(40, 167, 69, 0.2);
+color: var(--success);
+}
+.login-message.error {
+background: rgba(220, 53, 69, 0.2);
+color: var(--danger);
+}
+/* Admin Dashboard Styles */
+.admin-dashboard {
+display: none;
+max-width: 1400px;
+margin: 0 auto;
+padding: 3rem 5%;
+}
+.admin-header-bar {
+background: var(--primary);
+color: white;
+padding: 1rem 5%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.admin-nav {
+display: flex;
+gap: 1.5rem;
+}
+.admin-nav a {
+color: white;
+text-decoration: none;
+font-weight: 600;
+padding: 0.5rem 1rem;
+border-radius: 5px;
+transition: background 0.3s;
+}
+.admin-nav a:hover, .admin-nav a.active {
+background: rgba(255, 255, 255, 0.2);
+}
+.logout-btn {
+background: var(--danger);
+color: white;
+border: none;
+padding: 0.5rem 1rem;
+border-radius: 5px;
+font-weight: 600;
+cursor: pointer;
+transition: background 0.3s;
+}
+.logout-btn:hover {
+background: #c82333;
+}
+.summary-cards {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1.5rem;
+margin-bottom: 2rem;
+}
+.summary-card {
+background: white;
+border-radius: 10px;
+padding: 1.5rem;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+text-align: center;
+}
+.summary-card h3 {
+font-size: 2.5rem;
+color: var(--primary);
+margin-bottom: 0.5rem;
+}
+.summary-card p {
+color: var(--gray);
+font-weight: 600;
+}
+.product-form-container,
+.news-form-container {
+background: white;
+border-radius: 10px;
+padding: 2rem;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+margin-bottom: 2rem;
+}
+.product-form-container h2,
+.news-form-container h2 {
+margin-bottom: 1.5rem;
+color: var(--primary);
+}
+.product-form,
+.news-form {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 1.5rem;
+}
+/* Image Preview */
+.image-preview-container {
+height: 150px;
+border: 2px dashed #ccc;
+border-radius: 8px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 0.5rem;
+overflow: hidden;
+background: #fafafa;
+}
+.image-preview-container img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: none;
+}
+.image-preview-placeholder {
+color: var(--gray);
+text-align: center;
+font-size: 0.9rem;
+}
+.products-table,
+.news-table {
+background: white;
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+.products-table table,
+.news-table table {
+width: 100%;
+border-collapse: collapse;
+}
+.products-table th,
+.news-table th {
+background: var(--primary);
+color: white;
+text-align: left;
+padding: 1rem;
+}
+.products-table td,
+.news-table td {
+padding: 1rem;
+border-bottom: 1px solid #eee;
+}
+.products-table tr:last-child td,
+.news-table tr:last-child td {
+border-bottom: none;
+}
+.action-buttons {
+display: flex;
+gap: 0.5rem;
+}
+.edit-btn {
+background: var(--warning);
+color: white;
+border: none;
+padding: 0.3rem 0.6rem;
+border-radius: 3px;
+cursor: pointer;
+font-size: 0.9rem;
+}
+.delete-btn {
+background: var(--danger);
+color: white;
+border: none;
+padding: 0.3rem 0.6rem;
+border-radius: 3px;
+cursor: pointer;
+font-size: 0.9rem;
+}
+/* Modals */
+#newsDetailModal,
+#productDetailModal,
+#missionModal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.85);
+z-index: 4000;
+overflow-y: auto;
+}
+.modal-content {
+max-width: 1000px;
+margin: 50px auto;
+background: white;
+border-radius: 12px;
+box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+}
+.modal-header {
+background: var(--primary);
+color: white;
+padding: 1.5rem 2.5rem;
+position: relative;
+}
+.modal-header h2 {
+font-size: 2rem;
+}
+.modal-header .date {
+margin-top: 0.5rem;
+opacity: 0.9;
+font-size: 1.1rem;
+}
+.close-modal {
+position: absolute;
+top: 18px;
+right: 25px;
+color: white;
+font-size: 1.8rem;
+background: none;
+border: none;
+cursor: pointer;
+}
+.modal-body {
+padding: 2.5rem;
+line-height: 1.7;
+color: var(--dark);
+}
+.modal-footer {
+padding: 0 2.5rem 2.5rem;
+}
+.back-btn {
+background: var(--secondary);
+color: white;
+border: none;
+padding: 0.7rem 1.8rem;
+border-radius: 6px;
+cursor: pointer;
+font-weight: 600;
+font-size: 1rem;
+}
+/* Product Detail Specific */
+#productDetailModal .modal-body {
+display: flex;
+flex-wrap: wrap;
+gap: 2.5rem;
+}
+.product-detail-image {
+flex: 1;
+min-width: 300px;
+}
+.product-detail-image img {
+width: 100%;
+height: auto;
+border-radius: 10px;
+box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.product-detail-info {
+flex: 2;
+min-width: 300px;
+}
+.product-detail-price {
+font-size: 1.6rem;
+font-weight: 700;
+color: var(--accent);
+margin-bottom: 1.5rem;
+}
+#productDetailSpecs h3 {
+color: var(--primary);
+margin: 2rem 0 1.2rem;
+padding-bottom: 0.6rem;
+border-bottom: 2px solid var(--light-gray);
+}
+#specsList {
+list-style: none;
+padding: 0;
+}
+#specsList li {
+margin-bottom: 0.8rem;
+padding-bottom: 0.6rem;
+border-bottom: 1px dashed #eee;
+font-size: 1.05rem;
+}
+#specsList li strong {
+color: var(--primary);
+}
+/* ===== NIGHT VISION MODE ===== */
+body.night-vision {
+background-color: #0f172a;
+color: #e2e8f0;
+}
+body.night-vision header,
+body.night-vision .product-card,
+body.night-vision .event-card,
+body.night-vision .about-image,
+body.night-vision footer,
+body.night-vision .admin-content,
+body.night-vision .modal-content,
+body.night-vision .login-form,
+body.night-vision .product-form-container,
+body.night-vision .news-form-container,
+body.night-vision .products-table,
+body.night-vision .news-table,
+body.night-vision .summary-card {
+background-color: #1e293b;
+color: #f1f5f9;
+}
+body.night-vision h1, body.night-vision h2, body.night-vision h3 {
+color: #cbd5e1;
+}
+body.night-vision .price {
+color: #fbbf24;
+}
+body.night-vision nav a,
+body.night-vision .read-more,
+body.night-vision .event-content p,
+body.night-vision .product-info p,
+body.night-vision .about-text p {
+color: #cbd5e1;
+}
+body.night-vision .admin-header,
+body.night-vision .modal-header {
+background: #0f172a;
+}
+body.night-vision .btn,
+body.night-vision .cta-button {
+color: #0f172a;
+}
+body.night-vision .btn:hover,
+body.night-vision .cta-button:hover {
+background: #334155;
+color: #f1f5f9;
+}
+body.night-vision .form-group label,
+body.night-vision .form-group input,
+body.night-vision .form-group textarea,
+body.night-vision .form-group select {
+color: #f1f5f9;
+background: #334155;
+border-color: #475569;
+}
+body.night-vision .section-title h2::after {
+background-color: #fbbf24;
+}
+body.night-vision .dot {
+background-color: transparent;
+border-color: #cbd5e1;
+}
+body.night-vision .dot.active {
+background-color: #cbd5e1;
+}
+body.night-vision .event-date {
+background: #334155;
+color: #f1f5f9;
+}
+body.night-vision .admin-indicator {
+background: #fbbf24;
+color: #0f172a;
+}
+
+/* ✅ FIX MODAL TEXT IN NIGHT MODE */
+body.night-vision .modal-body,
+body.night-vision .modal-footer,
+body.night-vision .modal-body p,
+body.night-vision .modal-body li,
+body.night-vision .modal-footer button {
+  color: #f1f5f9 !important;
+}
+body.night-vision .modal-body strong {
+  color: #cbd5e1 !important;
+}
+body.night-vision .close-modal {
+  color: #f1f5f9 !important;
+}
+
+/* ===== AI CHAT BOT ===== */
+#chatBot {
+position: fixed;
+bottom: 20px;
+right: 20px;
+width: 320px;
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.3s ease, opacity 0.3s ease;
+z-index: 3000;
+opacity: 0;
+}
+#chatBot.open {
+max-height: 500px;
+opacity: 1;
+}
+#chatHeader {
+background: var(--primary);
+color: white;
+padding: 12px 16px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+cursor: pointer;
+}
+#chatHeader h3 {
+margin: 0;
+font-size: 1rem;
+}
+#chatToggle, #chatClose {
+background: none;
+border: none;
+color: white;
+font-size: 1.2rem;
+cursor: pointer;
+}
+#chatBody {
+background: white;
+height: 300px;
+overflow-y: auto;
+padding: 12px;
+display: flex;
+flex-direction: column;
+}
+.chat-message {
+margin-bottom: 12px;
+padding: 8px 12px;
+border-radius: 8px;
+max-width: 80%;
+word-wrap: break-word;
+}
+.bot-message {
+background: #e9ecef;
+align-self: flex-start;
+}
+.user-message {
+background: var(--accent);
+color: white;
+align-self: flex-end;
+}
+#chatInput {
+display: flex;
+padding: 8px;
+background: white;
+border-top: 1px solid #e9ecef;
+}
+#chatInput input {
+flex: 1;
+padding: 8px 12px;
+border: 1px solid #ced4da;
+border-radius: 4px 0 0 4px;
+}
+#chatSend {
+background: var(--accent);
+color: white;
+border: none;
+padding: 0 16px;
+border-radius: 0 4px 4px 0;
+cursor: pointer;
+}
+#chatBtn {
+position: fixed;
+bottom: 25px;
+right: 25px;
+width: 50px;
+height: 50px;
+background: var(--accent);
+color: white;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+cursor: pointer;
+z-index: 3001;
+font-size: 1.2rem;
+}
+#chatBtn:hover {
+background: #e55a2b;
+}
+/* Responsive Design */
+@media (max-width: 992px) {
+#chatBot { width: 280px; }
+.hero-carousel { height: 500px; }
+.hero-content h2 { font-size: 2.4rem; }
+.about-content {
+flex-direction: column;
+}
+.about-image {
+width: 100%;
+}
+.product-form,
+.news-form {
+grid-template-columns: 1fr;
+}
+}
+@media (max-width: 768px) {
+#chatBot { width: 250px; }
+.hero-carousel { height: 400px; }
+.hero-content h2 { font-size: 2rem; }
+.hero-content p { font-size: 1rem; }
+.mobile-menu-btn {
+display: block;
+}
+nav ul {
+position: fixed;
+top: 70px;
+left: 0;
+background: white;
+width: 100%;
+flex-direction: column;
+align-items: center;
+padding: 2rem 0;
+gap: 1.5rem;
+box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+transition: clip-path 0.4s ease-in-out;
+}
+nav ul.active {
+clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+.admin-content {
+width: 95%;
+}
+.admin-nav {
+flex-direction: column;
+gap: 0.5rem;
+}
+.products-carousel {
+gap: 1rem;
+}
+.products-carousel .product-card {
+flex: 0 0 250px;
+width: 250px;
+min-width: 250px;
+}
+#filteredProductsGrid {
+grid-template-columns: repeat(auto-fill, 250px) !important;
+gap: 1rem;
+}
+.hero-dots { bottom: 20px; }
+.hero-arrow { display: none; }
+}
+@media (max-width: 480px) {
+#chatBot { width: calc(100% - 40px); bottom: 70px; right: 20px; }
+#chatBtn { bottom: 20px; right: 20px; }
+.hero-carousel { height: 350px; }
+.hero-content h2 { font-size: 1.8rem; }
+.section-title h2 {
+font-size: 1.8rem;
+}
+.form-actions {
+flex-direction: column;
+align-items: flex-start;
+}
+.summary-cards {
+grid-template-columns: 1fr;
+}
+.modal-content {
+margin: 10px;
+}
+.modal-body {
+padding: 1.5rem;
+}
+#productDetailModal .modal-body {
+flex-direction: column;
+}
+}
+</style>
+</head>
+<body>
+<!-- Public Header -->
+<header id="publicHeader">
+<div class="header-container">
+<div class="logo">
+<img src="EES-favicon.png" alt="EliteView Logo">
+<h1>Eliteview Electronics Solution</span></h1>
+</div>
+<button class="mobile-menu-btn" id="menuToggle">
+<i class="fas fa-bars"></i>
+</button>
+<nav>
+<ul id="navMenu">
+<li><a href="#products">Products</a></li>
+<li><a href="#news">News & Events</a></li>
+<li><a href="#about">About Us</a></li>
+</ul>
+</nav>
+<!-- Admin Access Badge -->
+<div id="adminAccess" style="display:none;">
+<a href="#" id="goToAdmin" class="admin-indicator" style="text-decoration:none; padding:0.4rem 0.8rem; border-radius:20px;">
+<i class="fas fa-lock"></i> Admin Dashboard
+</a>
+</div>
+<!-- Night Vision Toggle -->
+<button id="nightVisionToggle" class="night-vision-btn" title="Night Mode">
+<i class="fas fa-moon"></i>
+</button>
+</div>
+</header>
+<!-- Admin Header (hidden by default) -->
+<header id="adminHeader" class="admin-header-bar" style="display: none;">
+<div class="logo">
+<i class="fas fa-shield-alt"></i>
+<h1>Elite<span>View</span> Admin</h1>
+</div>
+<div class="admin-nav">
+<a href="#" id="viewPublic" class="active">Public Site</a>
+<a href="#" id="manageProducts">Manage Products</a>
+<a href="#" id="manageNews">Manage News</a>
+</div>
+<button class="logout-btn" id="logoutBtn">Logout</button>
+</header>
+<!-- ✅ HERO CAROUSEL WITH IMAGES -->
+<section class="hero-carousel">
+<div class="hero-slides" id="heroSlides">
+<!-- Slide 1 -->
+<div class="hero-slide active">
+<div class="hero-content">
+<h2>Advanced Security Solutions for a Safer Tomorrow</h2>
+<p>EliteView provides cutting-edge CCTV technology with AI-powered analytics, crystal-clear imaging, and seamless integration for homes and businesses.</p>
+<a href="#products" class="cta-button">Explore Our Products</a>
+</div>
+</div>
+<!-- Slide 2 -->
+<div class="hero-slide">
+<div class="hero-content">
+<h2>AI-Powered Threat Detection</h2>
+<p>Real-time facial recognition, loitering alerts, and perimeter breach detection keep your property secure 24/7.</p>
+<a href="#products" class="cta-button">See AI Features</a>
+</div>
+</div>
+<!-- Slide 3 -->
+<div class="hero-slide">
+<div class="hero-content">
+<h2>Trusted by Over 500,000 Customers</h2>
+<p>Join homeowners, retailers, and enterprises worldwide who rely on EliteView for peace of mind.</p>
+<a href="#about" class="cta-button">Our Story</a>
+</div>
+</div>
+</div>
+<!-- Navigation Dots -->
+<div class="hero-dots" id="heroDots">
+<span class="dot active" data-index="0"></span>
+<span class="dot" data-index="1"></span>
+<span class="dot" data-index="2"></span>
+</div>
+<!-- Navigation Arrows -->
+<button class="hero-arrow hero-prev" id="heroPrev">&#10094;</button>
+<button class="hero-arrow hero-next" id="heroNext">&#10095;</button>
+</section>
+<!-- Main Content -->
+<main id="publicContent">
+<!-- ✅ UPDATED PRODUCTS SECTION -->
+<section id="products">
+<div class="section-title" style="display:flex; justify-content:space-between; align-items:center;">
+<h2>Our Products</h2>
+<a href="#" id="viewAllProductsBtn" class="btn" style="padding:0.5rem 1rem; font-size:0.95rem;">View All Products →</a>
+</div>
+<div class="products-carousel">
+<div id="productsContainer" style="display:flex; gap:1.5rem;"></div>
+</div>
+</section>
+<!-- News & Events Section -->
+<section id="news">
+<div class="section-title">
+<h2>News & Events</h2>
+</div>
+<div class="news-events" id="newsContainer">
+<!-- News will be rendered here -->
+</div>
+</section>
+<!-- About Us Section -->
+<section id="about">
+<div class="section-title">
+<h2>About Us</h2>
+</div>
+<div class="about-content">
+<div class="about-text">
+<h3>Securing Your World Since 2010</h3>
+<p>EliteView was founded with a mission to provide affordable, cutting-edge security solutions for everyone. From homeowners to enterprise clients, we deliver reliable surveillance technology that gives you peace of mind.</p>
+<p>Our team of engineers and security experts continuously innovate to stay ahead of emerging threats. With over 500,000 installations worldwide, EliteView has become a trusted name in the security industry.</p>
+<p>We believe that advanced security shouldn't be complicated. That's why our products are designed for easy installation and intuitive operation, without compromising on features or quality.</p>
+<a href="#" class="btn" id="openMissionModal">Our Mission</a>
+</div>
+<div class="about-image">
+<img src="IMG_5414.jpg" alt="EliteView Office">
+</div>
+</div>
+</section>
+</main>
+<!-- ✅ ALL PRODUCTS PAGE -->
+<main id="allProductsPage" class="admin-dashboard" style="display:none; padding-top:0;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+<h2>All Products</h2>
+<button id="backToHomeFromProducts" class="btn-admin btn-primary" style="padding:0.4rem 0.8rem; font-size:0.9rem;">← Back to Home</button>
+</div>
+<!-- Search & Filters -->
+<div style="background:white; padding:1.5rem; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.05); margin-bottom:2rem;">
+<div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:end;">
+<!-- Search -->
+<div style="flex:1; min-width:200px;">
+<label for="productSearch" style="font-weight:600; display:block; margin-bottom:0.5rem;">Search</label>
+<input type="text" id="productSearch" placeholder="Search by name or description..." style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:5px;">
+</div>
+<!-- Price Filter -->
+<div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+<div>
+<label for="minPrice" style="font-weight:600; display:block; margin-bottom:0.5rem; font-size:0.9rem;">Min Price</label>
+<input type="number" id="minPrice" placeholder="0" style="width:100px; padding:0.6rem; border:1px solid #ddd; border-radius:5px;">
+</div>
+<div>
+<label for="maxPrice" style="font-weight:600; display:block; margin-bottom:0.5rem; font-size:0.9rem;">Max Price</label>
+<input type="number" id="maxPrice" placeholder="1000" style="width:100px; padding:0.6rem; border:1px solid #ddd; border-radius:5px;">
+</div>
+</div>
+<button id="applyFilters" class="btn-admin btn-primary" style="height:fit-content; padding:0.6rem 1rem;">Apply Filters</button>
+<button id="resetFilters" class="btn-admin btn-danger" style="height:fit-content; padding:0.6rem 1rem;">Reset</button>
+</div>
+</div>
+<!-- ✅ FILTERED PRODUCTS GRID — FIXED SIZE, NO STRETCH -->
+<div id="filteredProductsGrid">
+<!-- Products will appear here -->
+</div>
+</main>
+<!-- Admin Dashboard (hidden by default) -->
+<main id="adminDashboard" class="admin-dashboard">
+<div class="summary-cards">
+<div class="summary-card">
+<h3 id="totalProducts">0</h3>
+<p>Total Products</p>
+</div>
+<div class="summary-card">
+<h3 id="totalValue">$0</h3>
+<p>Total Inventory Value</p>
+</div>
+<div class="summary-card">
+<h3 id="avgPrice">$0</h3>
+<p>Average Price</p>
+</div>
+</div>
+<!-- Product Form -->
+<div class="product-form-container">
+<h2 id="formTitle">Add New Product</h2>
+<form class="product-form" id="productForm">
+<input type="hidden" id="productId">
+<div class="form-group">
+<label for="productName">Product Name</label>
+<input type="text" id="productName" required>
+</div>
+<div class="form-group">
+<label for="productDescription">Description</label>
+<textarea id="productDescription" rows="3" required></textarea>
+</div>
+<div class="form-group">
+<label for="productPrice">Price ($)</label>
+<input type="number" id="productPrice" step="0.01" min="0" required>
+</div>
+<!-- Specs Section -->
+<div class="form-group">
+<label>Technical Specifications</label>
+<div id="specsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 0.5rem;">
+<!-- Dynamic spec fields -->
+</div>
+<button type="button" id="addSpecBtn" class="btn-admin btn-primary" style="width:fit-content; margin-top:1rem; padding:0.35rem 0.85rem; font-size:0.92rem;">
++ Add Spec
+</button>
+</div>
+<div class="form-group">
+<label for="productImage">Product Image</label>
+<input type="file" id="productImage" accept="image/*">
+<div class="image-preview-container">
+<img id="imagePreview" alt="Preview">
+<div class="image-preview-placeholder" id="previewPlaceholder">No image selected</div>
+</div>
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-admin btn-primary" id="saveProductBtn">Save Product</button>
+<button type="button" class="btn-admin btn-danger" id="cancelEditBtn" style="display: none;">Cancel</button>
+</div>
+</form>
+</div>
+<!-- News Form -->
+<div class="news-form-container" id="newsFormContainer" style="display:none;">
+<h2 id="newsFormTitle">Add New News Event</h2>
+<form class="news-form" id="newsForm">
+<input type="hidden" id="newsId">
+<div class="form-group">
+<label for="newsType">Type</label>
+<select id="newsType" required>
+<option value="news">News</option>
+<option value="event">Event</option>
+</select>
+</div>
+<div class="form-group">
+<label for="newsDate">Event Date</label>
+<input type="date" id="newsDate" required>
+</div>
+<div class="form-group">
+<label for="newsTitle">Title</label>
+<input type="text" id="newsTitle" required>
+</div>
+<div class="form-group">
+<label for="newsSummary">Summary (short preview)</label>
+<textarea id="newsSummary" rows="2" required></textarea>
+</div>
+<div class="form-group">
+<label for="newsContent">Full Content</label>
+<textarea id="newsContent" rows="5" required></textarea>
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-admin btn-primary">Save News</button>
+<button type="button" class="btn-admin btn-danger" id="cancelNewsEdit" style="display:none;">Cancel</button>
+</div>
+</form>
+</div>
+<!-- Product Table -->
+<div class="products-table">
+<table>
+<thead>
+<tr>
+<th>Product Name</th>
+<th>Description</th>
+<th>Price</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="productsTableBody">
+<!-- Products will be listed here -->
+</tbody>
+</table>
+</div>
+<!-- News Table -->
+<div class="news-table" id="newsTableContainer" style="display:none;">
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Title</th>
+<th>Summary</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="newsTableBody">
+<!-- News will be listed here -->
+</tbody>
+</table>
+</div>
+</main>
+<!-- Footer -->
+<footer>
+<div class="footer-content">
+<div class="footer-section">
+<h3>EliteView</h3>
+<p>Advanced CCTV solutions for homes and businesses worldwide.</p>
+<p>Providing security since 2010 with cutting-edge technology.</p>
+<div class="social-icons">
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-linkedin-in"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+<div class="footer-section">
+<h3>Quick Links</h3>
+<a href="#products">Products</a>
+<a href="#news">News & Events</a>
+<a href="#about">About Us</a>
+<a href="#">Support</a>
+<a href="#">Contact</a>
+</div>
+<div class="footer-section">
+<h3>Contact Us</h3>
+<p><i class="fas fa-map-marker-alt"></i> Blk 3 Lot 5 Ground Floor Titan Building Salawag, The Promenade South Dasmariñas Cavite</p>
+<p><i class="fas fa-phone"></i> 09108762854</p>
+<p><i class="fas fa-envelope"></i> eliteviewelectronics@gmail.com</p>
+</div>
+</div>
+<div class="copyright">
+&copy; 2026 EliteView Security Solutions. All rights reserved.
+</div>
+</footer>
+<!-- Admin Login Panel -->
+<div class="admin-panel" id="adminPanel">
+<div class="admin-content">
+<div class="admin-header">
+<h2>EliteView Admin Login</h2>
+<button class="close-admin" id="closeAdmin">&times;</button>
+</div>
+<div class="admin-body">
+<form class="login-form" id="loginForm">
+<div class="form-group">
+<label for="username">Username</label>
+<input type="text" id="username" required>
+</div>
+<div class="form-group">
+<label for="password">Password</label>
+<input type="password" id="password" required>
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-admin btn-primary">Login</button>
+</div>
+<div id="loginMessage"></div>
+</form>
+</div>
+</div>
+</div>
+<!-- Notification -->
+<div class="notification" id="notification"></div>
+<!-- News Detail Modal -->
+<div id="newsDetailModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="newsDetailTitle"></h2>
+<div class="date" id="newsDetailDate"></div>
+<button class="close-modal" id="closeNewsDetail">&times;</button>
+</div>
+<div class="modal-body" id="newsDetailContent"></div>
+<div class="modal-footer">
+<button class="back-btn" id="backToNews">← Back to News</button>
+</div>
+</div>
+</div>
+<!-- Product Detail Modal -->
+<div id="productDetailModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="productDetailTitle"></h2>
+<button class="close-modal" id="closeProductDetail">&times;</button>
+</div>
+<div class="modal-body">
+<div class="product-detail-image">
+<img id="productDetailImage" src="" alt="Product">
+</div>
+<div class="product-detail-info">
+<div class="product-detail-price" id="productDetailPrice"></div>
+<p id="productDetailDescription"></p>
+<div id="productDetailSpecs">
+<h3>Technical Specifications</h3>
+<ul id="specsList"></ul>
+</div>
+<button class="back-btn" id="backToProducts" style="margin-top:2rem;">← Back to Products</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Our Mission Modal -->
+<div id="missionModal" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>Our Mission</h2>
+<button class="close-modal" id="closeMissionModal">&times;</button>
+</div>
+<div class="modal-body">
+<p>
+At <strong>EliteView</strong>, our mission is to empower individuals, businesses, and communities with
+intelligent, reliable, and accessible security solutions that foster safety, peace of mind, and confidence
+in an ever-changing world.
+</p>
+<p>
+We believe advanced surveillance technology should be simple to use, ethically designed, and built for real-life
+challenges — not just for tech experts. That’s why we engineer every product with:
+</p>
+<ul>
+<li><strong>AI-powered intelligence</strong> that alerts you to real threats — not false alarms.</li>
+<li><strong>Military-grade encryption</strong> to protect your privacy and data.</li>
+<li><strong>Seamless integration</strong> with smart homes and enterprise systems.</li>
+<li><strong>Sustainable design</strong> for long-term reliability and minimal environmental impact.</li>
+</ul>
+<p>
+Since 2010, we’ve stood by one core principle: <em>Security isn’t a luxury — it’s a fundamental right.</em>
+Whether you’re protecting a family home or a global business, EliteView is committed to being your trusted
+partner in safety.
+</p>
+<div style="text-align: center; margin-top: 2rem; font-style: italic; color: var(--gray);">
+“Innovation with integrity. Security with simplicity.”
+</div>
+</div>
+<div class="modal-footer">
+<button class="back-btn" id="closeMissionFromFooter">Close</button>
+</div>
+</div>
+</div>
+<!-- AI Chat Bot -->
+<div id="chatBtn">
+<i class="fas fa-comment-dots"></i>
+</div>
+<div id="chatBot">
+<div id="chatHeader">
+<h3>EliteView Security Assistant</h3>
+<button id="chatClose">&times;</button>
+</div>
+<div id="chatBody">
+<div class="chat-message bot-message">Hello! I'm your EliteView assistant. How can I help you today?</div>
+</div>
+<div id="chatInput">
+<input type="text" id="userInput" placeholder="Type your message...">
+<button id="chatSend"><i class="fas fa-paper-plane"></i></button>
+</div>
+</div>
+<script>
+// ========== DATA ==========
+let products = [
+{
+id: 1,
+name: "EliteCam Pro 4K",
+description: "Ultra HD security camera with night vision and weather resistance.",
+price: 299.99,
+image: "https://images.unsplash.com/photo-1589656966895-2f33e7653819?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+specs: {
+"Resolution": "4K (3840x2160)",
+"Night Vision": "Up to 100ft",
+"Weatherproof Rating": "IP67",
+"Storage": "MicroSD + Cloud",
+"Connectivity": "Wi-Fi 6, Ethernet"
+},
+tags: ["home", "office"]
+},
+{
+id: 2,
+name: "SecureView NVR System",
+description: "8-channel network video recorder with 2TB storage and remote access.",
+price: 499.99,
+image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+specs: {
+"Channels": "8",
+"Hard Drive": "2TB HDD",
+"Remote Access": "iOS / Android / Web",
+"AI Features": "Motion detection, facial recognition"
+},
+tags: ["retail", "office", "industrial"]
+},
+{
+id: 3,
+name: "Smart Doorbell Cam",
+description: "AI-powered doorbell with facial recognition and two-way audio.",
+price: 199.99,
+image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+specs: {
+"Video Quality": "1080p HD",
+"Field of View": "160°",
+"Audio": "Two-way with noise cancellation",
+"Power Options": "Wired or battery",
+"Smart Home": "Alexa, Google Assistant",
+"Weather Resistance": "IP54"
+},
+tags: ["home"]
+}
+];
+// ✅ NEWS WITH TYPE + ISO DATE
+let newsEvents = [
+{
+id: 1,
+type: "news",
+isoDate: "2026-01-15",
+date: "15 JAN 2026",
+title: "EliteView Launches New AI-Powered Analytics Suite",
+summary: "Our latest software update brings advanced object detection and behavior analysis to all EliteView systems.",
+content: "EliteView is proud to announce the release of our next-generation AI analytics suite. This update enables real-time object classification, loitering detection, perimeter breach alerts, and more — all processed locally on your NVR for maximum privacy and speed. Available now for all EliteCam Pro and SecureView NVR customers via free firmware update."
+},
+{
+id: 2,
+type: "event",
+isoDate: "2026-02-22",
+date: "22 FEB 2026",
+title: "Security Expo 2026",
+summary: "Visit us at Booth #42 at the International Security Expo in Las Vegas.",
+content: "Join us at the world's largest security technology exhibition! We'll be showcasing our full lineup of AI-enabled cameras, cloud management platform, and new enterprise-grade access control integrations. Stop by Booth #42 for live demos, exclusive show pricing, and expert consultations with our engineering team."
+},
+{
+id: 3,
+type: "news",
+isoDate: "2026-03-05",
+date: "05 MAR 2026",
+title: "New Partnership with Smart Home Leaders",
+summary: "EliteView systems now integrate seamlessly with leading smart home platforms.",
+content: "We’re excited to announce official integrations with Amazon Alexa, Google Home, and Apple HomeKit. Now you can view live camera feeds, receive motion alerts, and control recording settings using just your voice or favorite smart home app — all with end-to-end encryption and zero cloud storage fees."
+}
+];
+const ADMIN_CREDENTIALS = { username: "admin", password: "secure123" };
+let isLoggedIn = false;
+// ✅ PERSISTENCE HELPER
+function saveAllData() {
+localStorage.setItem('eliteview_products', JSON.stringify(products));
+localStorage.setItem('eliteview_newsEvents', JSON.stringify(newsEvents));
+localStorage.setItem('eliteview_admin_logged_in', 'true');
+}
+function clearAllData() {
+localStorage.removeItem('eliteview_products');
+localStorage.removeItem('eliteview_newsEvents');
+localStorage.removeItem('eliteview_admin_logged_in');
+}
+// ========== DOM REFERENCES ==========
+const publicHeader = document.getElementById('publicHeader');
+const adminHeader = document.getElementById('adminHeader');
+const publicContent = document.getElementById('publicContent');
+const adminDashboard = document.getElementById('adminDashboard');
+const adminPanel = document.getElementById('adminPanel');
+const closeAdmin = document.getElementById('closeAdmin');
+const loginForm = document.getElementById('loginForm');
+const loginMessage = document.getElementById('loginMessage');
+const logoutBtn = document.getElementById('logoutBtn');
+const viewPublic = document.getElementById('viewPublic');
+const manageProducts = document.getElementById('manageProducts');
+const manageNews = document.getElementById('manageNews');
+const productsContainer = document.getElementById('productsContainer');
+const newsContainer = document.getElementById('newsContainer');
+const productsTableBody = document.getElementById('productsTableBody');
+const newsTableBody = document.getElementById('newsTableBody');
+const productForm = document.getElementById('productForm');
+const newsForm = document.getElementById('newsForm');
+const formTitle = document.getElementById('formTitle');
+const newsFormTitle = document.getElementById('newsFormTitle');
+const productIdInput = document.getElementById('productId');
+const newsIdInput = document.getElementById('newsId');
+const productNameInput = document.getElementById('productName');
+const productDescriptionInput = document.getElementById('productDescription');
+const productPriceInput = document.getElementById('productPrice');
+const productImageInput = document.getElementById('productImage');
+const imagePreview = document.getElementById('imagePreview');
+const previewPlaceholder = document.getElementById('previewPlaceholder');
+const newsDateInput = document.getElementById('newsDate');
+const newsTitleInput = document.getElementById('newsTitle');
+const newsSummaryInput = document.getElementById('newsSummary');
+const newsContentInput = document.getElementById('newsContent');
+const newsTypeInput = document.getElementById('newsType'); // ✅ NEW
+const saveProductBtn = document.getElementById('saveProductBtn');
+const cancelEditBtn = document.getElementById('cancelEditBtn');
+const cancelNewsEdit = document.getElementById('cancelNewsEdit');
+const totalProductsEl = document.getElementById('totalProducts');
+const totalValueEl = document.getElementById('totalValue');
+const avgPriceEl = document.getElementById('avgPrice');
+const notification = document.getElementById('notification');
+const goToAdmin = document.getElementById('goToAdmin');
+const adminAccess = document.getElementById('adminAccess');
+// ✅ NEW: All Products Page Elements
+const viewAllProductsBtn = document.getElementById('viewAllProductsBtn');
+const allProductsPage = document.getElementById('allProductsPage');
+const backToHomeFromProducts = document.getElementById('backToHomeFromProducts');
+const productSearch = document.getElementById('productSearch');
+const minPrice = document.getElementById('minPrice');
+const maxPrice = document.getElementById('maxPrice');
+const applyFilters = document.getElementById('applyFilters');
+const resetFilters = document.getElementById('resetFilters');
+const filteredProductsGrid = document.getElementById('filteredProductsGrid');
+// Modals
+const newsDetailModal = document.getElementById('newsDetailModal');
+const newsDetailTitle = document.getElementById('newsDetailTitle');
+const newsDetailDate = document.getElementById('newsDetailDate');
+const newsDetailContent = document.getElementById('newsDetailContent');
+const closeNewsDetail = document.getElementById('closeNewsDetail');
+const backToNews = document.getElementById('backToNews');
+const productDetailModal = document.getElementById('productDetailModal');
+const productDetailTitle = document.getElementById('productDetailTitle');
+const productDetailPrice = document.getElementById('productDetailPrice');
+const productDetailDescription = document.getElementById('productDetailDescription');
+const productDetailImage = document.getElementById('productDetailImage');
+const specsList = document.getElementById('specsList');
+const closeProductDetail = document.getElementById('closeProductDetail');
+const backToProducts = document.getElementById('backToProducts');
+// ========== OUR MISSION MODAL HANDLERS ==========
+const missionModal = document.getElementById('missionModal');
+const openMissionModal = document.getElementById('openMissionModal');
+const closeMissionModal = document.getElementById('closeMissionModal');
+const closeMissionFromFooter = document.getElementById('closeMissionFromFooter');
+if (openMissionModal) {
+openMissionModal.addEventListener('click', (e) => {
+e.preventDefault();
+missionModal.style.display = 'block';
+document.body.classList.add('modal-open');
+});
+}
+function closeMission() {
+if (missionModal) {
+missionModal.style.display = 'none';
+document.body.classList.remove('modal-open');
+}
+}
+if (closeMissionModal) closeMissionModal.addEventListener('click', closeMission);
+if (closeMissionFromFooter) closeMissionFromFooter.addEventListener('click', closeMission);
+if (missionModal) {
+missionModal.addEventListener('click', (e) => {
+if (e.target === missionModal) closeMission();
+});
+}
+// ========== NIGHT VISION TOGGLE ==========
+document.getElementById('nightVisionToggle')?.addEventListener('click', () => {
+document.body.classList.toggle('night-vision');
+const isNight = document.body.classList.contains('night-vision');
+localStorage.setItem('nightVision', isNight);
+document.querySelector('.night-vision-btn i').className =
+isNight ? 'fas fa-sun' : 'fas fa-moon';
+});
+// Restore on load
+if (localStorage.getItem('nightVision') === 'true') {
+document.body.classList.add('night-vision');
+document.querySelector('.night-vision-btn i').className = 'fas fa-sun';
+}
+// ========== AI CHAT BOT ==========
+const chatBtn = document.getElementById('chatBtn');
+const chatBot = document.getElementById('chatBot');
+const chatClose = document.getElementById('chatClose');
+const chatBody = document.getElementById('chatBody');
+const userInput = document.getElementById('userInput');
+const chatSend = document.getElementById('chatSend');
+chatBtn.addEventListener('click', () => {
+chatBot.classList.toggle('open');
+});
+chatClose.addEventListener('click', () => {
+chatBot.classList.remove('open');
+});
+function addMessage(text, isUser = false) {
+const msg = document.createElement('div');
+msg.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
+msg.textContent = text;
+chatBody.appendChild(msg);
+chatBody.scrollTop = chatBody.scrollHeight;
+}
+chatSend.addEventListener('click', sendMessage);
+userInput.addEventListener('keypress', (e) => {
+if (e.key === 'Enter') sendMessage();
+});
+function sendMessage() {
+const text = userInput.value.trim();
+if (!text) return;
+addMessage(text, true);
+userInput.value = '';
+
+setTimeout(() => {
+  let reply = "I'm sorry, I didn't understand that. Can you ask about products, pricing, or features?";
+  const lower = text.toLowerCase().trim();
+
+  if (/(hello|hi|hey)/i.test(lower)) {
+    reply = "Hello! How can I assist you with EliteView security solutions today?";
+  }
+  else if (/(yes|yeah|yep|sure|okay|ok|absolutely)/i.test(lower)) {
+    reply = "Great! Is there a specific product or feature you'd like to know more about?";
+  }
+  else if (/(product|camera|device|system)/i.test(lower)) {
+    reply = "We offer EliteCam Pro 4K, SecureView NVR System, and Smart Doorbell Cam. Would you like details on any?";
+  }
+  else if (/(price|cost|how much|afford)/i.test(lower)) {
+    reply = "Our products range from $199.99 to $499.99. Visit 'View All Products' for full details!";
+  }
+  else if (/(thank|thanks)/i.test(lower)) {
+    reply = "You're welcome! Let me know if you need anything else.";
+  }
+
+  addMessage(reply);
+}, 500);
+}
+// ========== HERO CAROUSEL JS ==========
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.dot');
+const totalSlides = slides.length;
+function showSlide(index) {
+if (index >= totalSlides) index = 0;
+if (index < 0) index = totalSlides - 1;
+document.getElementById('heroSlides').style.transform = `translateX(-${index * 100}%)`;
+dots.forEach((dot, i) => {
+dot.classList.toggle('active', i === index);
+});
+currentSlide = index;
+}
+dots.forEach(dot => {
+dot.addEventListener('click', () => {
+showSlide(parseInt(dot.dataset.index));
+});
+});
+document.getElementById('heroPrev').addEventListener('click', () => {
+showSlide(currentSlide - 1);
+});
+document.getElementById('heroNext').addEventListener('click', () => {
+showSlide(currentSlide + 1);
+});
+let slideInterval = setInterval(() => {
+showSlide(currentSlide + 1);
+}, 5000);
+const heroCarousel = document.querySelector('.hero-carousel');
+heroCarousel.addEventListener('mouseenter', () => {
+clearInterval(slideInterval);
+});
+heroCarousel.addEventListener('mouseleave', () => {
+slideInterval = setInterval(() => {
+showSlide(currentSlide + 1);
+}, 5000);
+});
+// ========== DYNAMIC SPECS ==========
+let specCount = 5;
+const specsContainer = document.getElementById('specsContainer');
+function createSpecField(index) {
+const container = document.createElement('div');
+const label = document.createElement('label');
+label.textContent = `Spec ${index} Label`;
+label.style.fontSize = '0.85rem';
+label.style.display = 'block';
+label.style.marginBottom = '0.25rem';
+const labelInput = document.createElement('input');
+labelInput.type = 'text';
+labelInput.id = `spec${index}Label`;
+labelInput.placeholder = 'e.g., Resolution';
+labelInput.style.marginBottom = '0.25rem';
+labelInput.style.fontSize = '0.85rem';
+labelInput.style.padding = '0.4rem';
+labelInput.style.border = '1px solid #ddd';
+labelInput.style.borderRadius = '4px';
+const valueInput = document.createElement('input');
+valueInput.type = 'text';
+valueInput.id = `spec${index}Value`;
+valueInput.placeholder = 'e.g., 4K';
+valueInput.style.padding = '0.4rem';
+valueInput.style.border = '1px solid #ddd';
+valueInput.style.borderRadius = '4px';
+container.appendChild(label);
+container.appendChild(labelInput);
+container.appendChild(valueInput);
+return container;
+}
+function initSpecFields() {
+specsContainer.innerHTML = '';
+for (let i = 1; i <= specCount; i++) {
+specsContainer.appendChild(createSpecField(i));
+}
+}
+document.getElementById('addSpecBtn').addEventListener('click', () => {
+specCount++;
+specsContainer.appendChild(createSpecField(specCount));
+});
+// ========== IMAGE PREVIEW ==========
+productImageInput.addEventListener('change', function(e) {
+const file = e.target.files[0];
+if (file) {
+const reader = new FileReader();
+reader.onload = function(event) {
+imagePreview.src = event.target.result;
+imagePreview.style.display = 'block';
+previewPlaceholder.style.display = 'none';
+};
+reader.readAsDataURL(file);
+} else {
+imagePreview.style.display = 'none';
+previewPlaceholder.style.display = 'block';
+}
+});
+// ========== KEY SEQUENCE ==========
+let keySequence = [];
+const SECRET_SEQUENCE = ['A', 'D', 'M', 'I', 'N'];
+document.addEventListener('keydown', (e) => {
+if (isLoggedIn && adminDashboard.style.display === 'block') return;
+if (!isLoggedIn && adminDashboard.style.display === 'block') return;
+keySequence.push(e.key.toUpperCase());
+if (keySequence.length > 5) keySequence.shift();
+if (keySequence.join('') === SECRET_SEQUENCE.join('')) {
+adminPanel.classList.add('active');
+keySequence = [];
+}
+});
+// ========== MODAL HANDLERS ==========
+// News
+closeNewsDetail.addEventListener('click', () => {
+newsDetailModal.style.display = 'none';
+document.body.classList.remove('modal-open');
+});
+backToNews.addEventListener('click', () => {
+newsDetailModal.style.display = 'none';
+document.body.classList.remove('modal-open');
+});
+function showNewsDetail(id) {
+const event = newsEvents.find(e => e.id === id);
+if (!event) return;
+newsDetailTitle.textContent = event.title;
+newsDetailDate.textContent = event.date;
+newsDetailContent.innerHTML = `<p>${event.content.replace(/\n/g, '</p><p>')}</p>`;
+newsDetailModal.style.display = 'block';
+document.body.classList.add('modal-open');
+}
+// Product
+closeProductDetail.addEventListener('click', () => {
+productDetailModal.style.display = 'none';
+document.body.classList.remove('modal-open');
+});
+backToProducts.addEventListener('click', () => {
+productDetailModal.style.display = 'none';
+document.body.classList.remove('modal-open');
+});
+function showProductDetail(id) {
+const product = products.find(p => p.id === id);
+if (!product) return;
+productDetailTitle.textContent = product.name;
+productDetailPrice.textContent = `$${product.price.toFixed(2)}`;
+productDetailDescription.textContent = product.description;
+productDetailImage.src = product.image || 'https://via.placeholder.com/600x400?text=No+Image';
+// Render specs
+specsList.innerHTML = '';
+if (product.specs && Object.keys(product.specs).length > 0) {
+for (const [label, value] of Object.entries(product.specs)) {
+const li = document.createElement('li');
+li.innerHTML = `<strong>${label}:</strong> ${value}`;
+specsList.appendChild(li);
+}
+} else {
+specsList.innerHTML = '<li style="color:var(--gray);">No specifications available.</li>';
+}
+productDetailModal.style.display = 'block';
+document.body.classList.add('modal-open');
+}
+// ========== LOGIN / LOGOUT ==========
+closeAdmin.addEventListener('click', () => adminPanel.classList.remove('active'));
+adminPanel.addEventListener('click', (e) => { if (e.target === adminPanel) adminPanel.classList.remove('active'); });
+loginForm.addEventListener('submit', (e) => {
+e.preventDefault();
+const username = document.getElementById('username').value;
+const password = document.getElementById('password').value;
+loginMessage.innerHTML = '';
+if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+isLoggedIn = true;
+loginMessage.innerHTML = '<div class="login-message success">Login successful!</div>';
+setTimeout(() => {
+adminPanel.classList.remove('active');
+showAdminDashboard();
+loginForm.reset();
+loginMessage.innerHTML = '';
+updateAdminAccessVisibility();
+localStorage.setItem('eliteview_admin_logged_in', 'true');
+}, 1000);
+} else {
+loginMessage.innerHTML = '<div class="login-message error">Invalid credentials! Please try again.</div>';
+}
+});
+logoutBtn.addEventListener('click', () => {
+isLoggedIn = false;
+localStorage.removeItem('eliteview_admin_logged_in');
+showPublicSite();
+showNotification('Logged out successfully', 'success');
+updateAdminAccessVisibility();
+});
+goToAdmin?.addEventListener('click', (e) => {
+e.preventDefault();
+showAdminDashboard();
+});
+function updateAdminAccessVisibility() {
+adminAccess.style.display = isLoggedIn ? 'block' : 'none';
+}
+// ========== NAVIGATION ==========
+viewPublic.addEventListener('click', () => {
+showPublicSite();
+setActiveNav(viewPublic);
+});
+manageProducts.addEventListener('click', () => {
+showAdminDashboard();
+setActiveNav(manageProducts);
+document.querySelector('.product-form-container').style.display = 'block';
+document.querySelector('.products-table').style.display = 'block';
+document.getElementById('newsFormContainer').style.display = 'none';
+document.getElementById('newsTableContainer').style.display = 'none';
+});
+manageNews.addEventListener('click', () => {
+showAdminDashboard();
+setActiveNav(manageNews);
+document.querySelector('.product-form-container').style.display = 'none';
+document.querySelector('.products-table').style.display = 'none';
+document.getElementById('newsFormContainer').style.display = 'block';
+document.getElementById('newsTableContainer').style.display = 'block';
+renderNewsAdmin();
+});
+function setActiveNav(activeElement) {
+document.querySelectorAll('.admin-nav a').forEach(link => link.classList.remove('active'));
+activeElement.classList.add('active');
+}
+function showPublicSite() {
+publicHeader.style.display = 'block';
+adminHeader.style.display = 'none';
+publicContent.style.display = 'block';
+allProductsPage.style.display = 'none';
+adminDashboard.style.display = 'none';
+renderProducts();
+renderNews();
+}
+// ✅ FIXED: Hide allProductsPage when entering admin dashboard
+function showAdminDashboard() {
+publicHeader.style.display = 'none';
+adminHeader.style.display = 'flex';
+publicContent.style.display = 'none';
+allProductsPage.style.display = 'none'; // ✅ CRITICAL FIX
+adminDashboard.style.display = 'block';
+renderAdminProducts();
+updateSummary();
+}
+// ✅ ALL PRODUCTS PAGE NAVIGATION
+viewAllProductsBtn.addEventListener('click', (e) => {
+e.preventDefault();
+publicHeader.style.display = 'block';
+adminHeader.style.display = 'none';
+publicContent.style.display = 'none';
+allProductsPage.style.display = 'block';
+renderFilteredProducts();
+});
+backToHomeFromProducts.addEventListener('click', () => {
+allProductsPage.style.display = 'none';
+publicContent.style.display = 'block';
+});
+// ========== DATE HELPERS ==========
+function formatDateDisplay(dateString) {
+const date = new Date(dateString);
+const day = String(date.getDate()).padStart(2, '0');
+const month = date.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+const year = date.getFullYear();
+return `${day} ${month} ${year}`;
+}
+function parseDisplayDate(displayDate) {
+const months = {
+'JAN': '01', 'FEB': '02', 'MAR': '03', 'APR': '04',
+'MAY': '05', 'JUN': '06', 'JUL': '07', 'AUG': '08',
+'SEP': '09', 'OCT': '10', 'NOV': '11', 'DEC': '12'
+};
+const parts = displayDate.split(' ');
+const day = parts[0].padStart(2, '0');
+const month = months[parts[1]];
+const year = parts[2];
+return `${year}-${month}-${day}`;
+}
+// ========== PRODUCT MANAGEMENT ==========
+productForm.addEventListener('submit', (e) => {
+e.preventDefault();
+const id = productIdInput.value ? parseInt(productIdInput.value) : null;
+const name = productNameInput.value;
+const description = productDescriptionInput.value;
+const price = parseFloat(productPriceInput.value);
+let image = '';
+if (productImageInput.files.length > 0) {
+image = imagePreview.src;
+} else if (id !== null) {
+const existing = products.find(p => p.id === id);
+image = existing?.image || 'https://via.placeholder.com/600x400?text=No+Image';
+} else {
+image = 'https://via.placeholder.com/600x400?text=No+Image';
+}
+// Build specs object from ALL spec fields
+const specs = {};
+let index = 1;
+while (true) {
+const labelInput = document.getElementById(`spec${index}Label`);
+const valueInput = document.getElementById(`spec${index}Value`);
+if (!labelInput || !valueInput) break;
+const label = labelInput.value.trim();
+const value = valueInput.value.trim();
+if (label && value) {
+specs[label] = value;
+}
+index++;
+}
+const product = { id, name, description, price, image, specs };
+if (id) {
+const index = products.findIndex(p => p.id === id);
+if (index !== -1) {
+products[index] = product;
+showNotification('Product updated!', 'success');
+}
+} else {
+const newId = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+product.id = newId;
+products.push(product);
+showNotification('Product added!', 'success');
+}
+resetProductForm();
+renderProducts();
+renderAdminProducts();
+renderFilteredProducts();
+updateSummary();
+saveAllData();
+});
+function resetProductForm() {
+productIdInput.value = '';
+productNameInput.value = '';
+productDescriptionInput.value = '';
+productPriceInput.value = '';
+productImageInput.value = '';
+imagePreview.style.display = 'none';
+previewPlaceholder.style.display = 'block';
+specCount = 5;
+initSpecFields();
+formTitle.textContent = 'Add New Product';
+cancelEditBtn.style.display = 'none';
+saveProductBtn.textContent = 'Save Product';
+}
+cancelEditBtn.addEventListener('click', resetProductForm);
+function editProduct(id) {
+const product = products.find(p => p.id === id);
+if (product) {
+productIdInput.value = product.id;
+productNameInput.value = product.name;
+productDescriptionInput.value = product.description;
+productPriceInput.value = product.price;
+if (product.image) {
+imagePreview.src = product.image;
+imagePreview.style.display = 'block';
+previewPlaceholder.style.display = 'none';
+}
+const specEntries = Object.entries(product.specs || {});
+specCount = Math.max(5, specEntries.length);
+initSpecFields();
+for (let i = 0; i < specEntries.length; i++) {
+const [label, value] = specEntries[i];
+const labelInput = document.getElementById(`spec${i+1}Label`);
+const valueInput = document.getElementById(`spec${i+1}Value`);
+if (labelInput) labelInput.value = label;
+if (valueInput) valueInput.value = value || '';
+}
+formTitle.textContent = 'Edit Product';
+cancelEditBtn.style.display = 'inline-block';
+saveProductBtn.textContent = 'Update Product';
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+}
+function deleteProduct(id) {
+if (confirm('Delete this product?')) {
+products = products.filter(p => p.id !== id);
+renderProducts();
+renderAdminProducts();
+renderFilteredProducts();
+updateSummary();
+showNotification('Product deleted!', 'success');
+saveAllData();
+}
+}
+// ========== NEWS MANAGEMENT ==========
+newsForm.addEventListener('submit', (e) => {
+e.preventDefault();
+const id = newsIdInput.value ? parseInt(newsIdInput.value) : null;
+const type = newsTypeInput.value;
+const dateISO = newsDateInput.value;
+if (!dateISO) {
+showNotification('Please select a date', 'error');
+return;
+}
+const displayDate = formatDateDisplay(dateISO);
+const title = newsTitleInput.value.trim();
+const summary = newsSummaryInput.value.trim();
+const content = newsContentInput.value.trim();
+if (id) {
+const index = newsEvents.findIndex(n => n.id === id);
+if (index !== -1) {
+newsEvents[index] = { id, type, isoDate: dateISO, date: displayDate, title, summary, content };
+showNotification('News updated!', 'success');
+}
+} else {
+const newId = newsEvents.length ? Math.max(...newsEvents.map(n => n.id)) + 1 : 1;
+newsEvents.push({ id: newId, type, isoDate: dateISO, date: displayDate, title, summary, content });
+showNotification('News added!', 'success');
+}
+resetNewsForm();
+renderNews();
+renderNewsAdmin();
+saveAllData();
+});
+function resetNewsForm() {
+newsForm.reset();
+newsIdInput.value = '';
+newsFormTitle.textContent = 'Add New News Event';
+cancelNewsEdit.style.display = 'none';
+}
+cancelNewsEdit.addEventListener('click', resetNewsForm);
+function editNews(id) {
+const event = newsEvents.find(n => n.id === id);
+if (event) {
+newsIdInput.value = event.id;
+newsTypeInput.value = event.type || 'news';
+newsDateInput.value = event.isoDate;
+newsTitleInput.value = event.title;
+newsSummaryInput.value = event.summary;
+newsContentInput.value = event.content;
+newsFormTitle.textContent = 'Edit News Event';
+cancelNewsEdit.style.display = 'inline-block';
+document.getElementById('newsFormContainer').scrollIntoView({ behavior: 'smooth' });
+}
+}
+function deleteNews(id) {
+if (confirm('Delete this news event?')) {
+newsEvents = newsEvents.filter(n => n.id !== id);
+renderNews();
+renderNewsAdmin();
+showNotification('News deleted!', 'success');
+saveAllData();
+}
+}
+// ========== RENDERING ==========
+function renderProducts() {
+productsContainer.innerHTML = '';
+products.forEach(product => {
+const card = document.createElement('div');
+card.className = 'product-card';
+card.innerHTML = `
+<div class="product-image">
+<img src="${product.image}" alt="${product.name}">
+</div>
+<div class="product-info">
+<h3>${product.name}</h3>
+<p>${product.description}</p>
+<div class="price">$${product.price.toFixed(2)}</div>
+<a href="#" class="btn view-details-btn" data-id="${product.id}">View Details</a>
+</div>
+`;
+productsContainer.appendChild(card);
+});
+document.querySelectorAll('.view-details-btn').forEach(btn => {
+btn.addEventListener('click', (e) => {
+e.preventDefault();
+const id = parseInt(btn.dataset.id);
+showProductDetail(id);
+});
+});
+}
+function renderFilteredProducts() {
+const searchTerm = productSearch.value.toLowerCase();
+const min = minPrice.value ? parseFloat(minPrice.value) : 0;
+const max = maxPrice.value ? parseFloat(maxPrice.value) : Infinity;
+const filtered = products.filter(product => {
+const matchesSearch =
+product.name.toLowerCase().includes(searchTerm) ||
+product.description.toLowerCase().includes(searchTerm);
+const matchesPrice = product.price >= min && product.price <= max;
+return matchesSearch && matchesPrice;
+});
+filteredProductsGrid.innerHTML = '';
+if (filtered.length === 0) {
+filteredProductsGrid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--gray);">No products match your filters.</p>';
+return;
+}
+filtered.forEach(product => {
+const card = document.createElement('div');
+card.className = 'product-card';
+card.innerHTML = `
+<div class="product-image">
+<img src="${product.image}" alt="${product.name}">
+</div>
+<div class="product-info">
+<h3>${product.name}</h3>
+<p>${product.description}</p>
+<div class="price">$${product.price.toFixed(2)}</div>
+<a href="#" class="btn view-details-btn" data-id="${product.id}">View Details</a>
+</div>
+`;
+filteredProductsGrid.appendChild(card);
+});
+document.querySelectorAll('.view-details-btn').forEach(btn => {
+btn.addEventListener('click', (e) => {
+e.preventDefault();
+const id = parseInt(btn.dataset.id);
+showProductDetail(id);
+});
+});
+}
+function renderNews() {
+const sortedNews = [...newsEvents].sort((a, b) => new Date(a.isoDate) - new Date(b.isoDate));
+newsContainer.innerHTML = '';
+sortedNews.forEach(event => {
+const parts = event.date.split(' ');
+const day = parts[0];
+const monthYear = parts.slice(1).join(' ');
+const tag = event.type === 'event'
+? '<span class="event-tag">EVENT</span>'
+: '<span class="news-tag">NEWS</span>';
+const card = document.createElement('div');
+card.className = 'event-card';
+card.innerHTML = `
+<div class="event-date">
+<div>${day}</div>
+<div>${monthYear}</div>
+</div>
+<div class="event-content">
+${tag}
+<h3>${event.title}</h3>
+<p>${event.summary}</p>
+<a href="#" class="read-more" data-id="${event.id}">Read More <i class="fas fa-arrow-right"></i></a>
+</div>
+`;
+newsContainer.appendChild(card);
+});
+document.querySelectorAll('.read-more').forEach(link => {
+link.addEventListener('click', (e) => {
+e.preventDefault();
+const id = parseInt(link.dataset.id);
+showNewsDetail(id);
+});
+});
+}
+function renderAdminProducts() {
+productsTableBody.innerHTML = '';
+if (products.length === 0) {
+productsTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No products</td></tr>';
+return;
+}
+products.forEach(p => {
+const row = document.createElement('tr');
+row.innerHTML = `
+<td>${p.name}</td>
+<td>${p.description}</td>
+<td>$${p.price.toFixed(2)}</td>
+<td class="action-buttons">
+<button class="edit-btn" onclick="editProduct(${p.id})">Edit</button>
+<button class="delete-btn" onclick="deleteProduct(${p.id})">Delete</button>
+</td>
+`;
+productsTableBody.appendChild(row);
+});
+}
+function renderNewsAdmin() {
+newsTableBody.innerHTML = '';
+if (newsEvents.length === 0) {
+newsTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No news events</td></tr>';
+return;
+}
+newsEvents.forEach(n => {
+const row = document.createElement('tr');
+row.innerHTML = `
+<td>${n.date}</td>
+<td>${n.title}</td>
+<td>${n.summary}</td>
+<td class="action-buttons">
+<button class="edit-btn" onclick="editNews(${n.id})">Edit</button>
+<button class="delete-btn" onclick="deleteNews(${n.id})">Delete</button>
+</td>
+`;
+newsTableBody.appendChild(row);
+});
+}
+function updateSummary() {
+totalProductsEl.textContent = products.length;
+if (products.length === 0) {
+totalValueEl.textContent = '$0.00';
+avgPriceEl.textContent = '$0.00';
+return;
+}
+const totalValue = products.reduce((sum, p) => sum + p.price, 0);
+const avgPrice = totalValue / products.length;
+totalValueEl.textContent = `$${totalValue.toFixed(2)}`;
+avgPriceEl.textContent = `$${avgPrice.toFixed(2)}`;
+}
+function showNotification(message, type) {
+notification.textContent = message;
+notification.className = `notification ${type} show`;
+setTimeout(() => notification.classList.remove('show'), 3000);
+}
+// Mobile menu
+const menuToggle = document.getElementById('menuToggle');
+const navMenu = document.getElementById('navMenu');
+menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+if(targetId === '#') return;
+const target = document.querySelector(targetId);
+if(target) {
+window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+navMenu.classList.remove('active');
+}
+});
+});
+// ✅ FILTER EVENTS
+applyFilters.addEventListener('click', renderFilteredProducts);
+resetFilters.addEventListener('click', () => {
+productSearch.value = '';
+minPrice.value = '';
+maxPrice.value = '';
+renderFilteredProducts();
+});
+productSearch.addEventListener('input', renderFilteredProducts);
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+initSpecFields();
+if (localStorage.getItem('eliteview_admin_logged_in') === 'true') {
+isLoggedIn = true;
+updateAdminAccessVisibility();
+}
+const savedProducts = localStorage.getItem('eliteview_products');
+if (savedProducts) {
+try {
+products = JSON.parse(savedProducts);
+products.forEach(p => {
+if (!p.tags) p.tags = ["home"];
+});
+} catch (e) {
+console.warn('Failed to parse saved products');
+}
+}
+const savedNews = localStorage.getItem('eliteview_newsEvents');
+if (savedNews) {
+try {
+newsEvents = JSON.parse(savedNews);
+} catch (e) {
+console.warn('Failed to parse saved news/events');
+}
+}
+renderProducts();
+renderNews();
+updateSummary();
+updateAdminAccessVisibility();
+});
+</script>
+</body>
+</html>
